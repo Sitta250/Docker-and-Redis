@@ -1,0 +1,21 @@
+services:
+  node-app:
+    build:
+      context: .
+      args: 
+        NODE_ENV: development
+    volumes:
+      - ./:/app:ro
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGO_USER=sitta
+      - MONGO_PASSWORD=secret
+      - SESSION_SECRET=secret
+    command: npm run dev
+  mongo:
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=sitta
+      - MONGO_INITDB_ROOT_PASSWORD=secret

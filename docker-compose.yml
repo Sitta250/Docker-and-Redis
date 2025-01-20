@@ -1,0 +1,23 @@
+services:
+  node-app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=sitta
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    volumes:
+      - mongo-db:/data/db
+  redis:
+    image: redis:latest
+
+volumes:
+  mongo-db:
