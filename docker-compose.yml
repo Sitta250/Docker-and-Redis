@@ -9,10 +9,12 @@ services:
       - node-app
   node-app:
     build: .
+    image: sitta/node-app
     environment:
       - PORT=3000
     depends_on:
       - mongo
+
   mongo:
     image: mongo
     ports:
