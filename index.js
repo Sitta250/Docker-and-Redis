@@ -14,6 +14,7 @@ import redis from 'redis';
 import {RedisStore} from 'connect-redis';
 import postRouter from './routes/postRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import cors from 'cors';
 
 const app = express();
 
@@ -31,7 +32,8 @@ const connectWithRetry = () => {
 };
 
 connectWithRetry();
-
+app.use(cors({}));k
+app.enable("trust proxy")
 // Redis Client Setupk
 let RedisClient = redis.createClient({
   socket: {
@@ -74,8 +76,9 @@ app.use(
 app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/api/v1', (req, res) => {
   res.send('<h2>Hello</h2>');
+  console.log('This app is running')
 });
 app.use('/api/v1/posts', postRouter);
 app.use('/api/v1/users', userRouter);
